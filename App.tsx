@@ -1,79 +1,34 @@
 import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { Expenses, Add, Reports, Settings } from "./screens";
 import { theme } from "./theme";
-import { TabBarIcon } from "./components/TabBarIcon";
 
-const Tab = createBottomTabNavigator();
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { Home } from "./screens/Home";
+import Categories from "./screens/Categories";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
+
+const Stack = createNativeStackNavigator();
 
 export default function App() {
   return (
-    <NavigationContainer theme={theme}>
-      <StatusBar style="light" />
-      <Tab.Navigator>
-        <Tab.Screen
-          options={{
-            tabBarIcon: ({ focused }) => {
-              return (
-                <TabBarIcon
-                  color={focused ? "white" : "gray"}
-                  size={24}
-                  type={"expenses"}
-                />
-              );
-            },
-          }}
-          name="Expenses"
-          component={Expenses}
-        />
-        <Tab.Screen
-          options={{
-            tabBarIcon: ({ focused }) => {
-              return (
-                <TabBarIcon
-                  color={focused ? "white" : "gray"}
-                  size={24}
-                  type={"reports"}
-                />
-              );
-            },
-          }}
-          name="Reports"
-          component={Reports}
-        />
-        <Tab.Screen
-          options={{
-            tabBarIcon: ({ focused }) => {
-              return (
-                <TabBarIcon
-                  color={focused ? "white" : "gray"}
-                  size={24}
-                  type={"add"}
-                />
-              );
-            },
-          }}
-          name="Add"
-          component={Add}
-        />
-        <Tab.Screen
-          options={{
-            tabBarIcon: ({ focused }) => {
-              return (
-                <TabBarIcon
-                  color={focused ? "white" : "gray"}
-                  size={24}
-                  type={"settings"}
-                />
-              );
-            },
-          }}
-          name="Settings"
-          component={Settings}
-        />
-      </Tab.Navigator>
-    </NavigationContainer>
+    <GestureHandlerRootView>
+      <NavigationContainer theme={theme}>
+        <StatusBar style="light" />
+        <Stack.Navigator>
+          <Stack.Screen
+            options={{ headerShown: false }}
+            name="Home"
+            component={Home}
+          />
+          <Stack.Screen
+            options={{
+              headerBackTitle: "Back",
+            }}
+            name="Categories"
+            component={Categories}
+          />
+        </Stack.Navigator>
+      </NavigationContainer>
+    </GestureHandlerRootView>
   );
 }

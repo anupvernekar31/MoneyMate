@@ -3,8 +3,10 @@ import React from "react";
 import ListItem from "../components/ListItem";
 import { Entypo } from "@expo/vector-icons";
 import { theme } from "../theme";
+import { useNavigation } from "@react-navigation/native";
 
 export const Settings = () => {
+    const navigation = useNavigation();
   return (
     <View
       style={{
@@ -15,7 +17,7 @@ export const Settings = () => {
     >
       <ListItem
         label="Categories"
-        onClick={() => {}}
+        onClick={() => navigation.navigate("Categories")}
         detail={
           <Entypo
             name="chevron-small-right"

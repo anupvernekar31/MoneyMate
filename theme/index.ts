@@ -10,7 +10,7 @@ export const theme = {
     border: "#262629",
     notification: "#0A84FF",
     error: "#FF453A",
-    //textPrimary: "#FFFFFF",
-    //textSecondary: "#EBEBF599",
+    textPrimary: "#FFFFFF",
+    textSecondary: "#EBEBF599",
   },
 };
