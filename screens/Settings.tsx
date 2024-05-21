@@ -17,7 +17,7 @@ export const Settings = () => {
     >
       <ListItem
         label="Categories"
-        onClick={() => navigation.navigate("Categories")}
+        onClick={() => navigation.navigate("Categories" as never)}
         detail={<Entypo name="chevron-small-right" size={24} color={"gray"} />}
       />
 

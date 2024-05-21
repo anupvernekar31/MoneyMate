@@ -192,6 +192,20 @@ export const Add = () => {
             }
           />
         </View>
+        <TouchableOpacity
+          style={{
+            backgroundColor: theme.colors.primary,
+            paddingHorizontal: 20,
+            paddingVertical: 13,
+            borderRadius: 10,
+            marginTop: 32,
+          }}
+          // onPress={submitExpense}
+        >
+          <Text style={{ color: 'white', fontWeight: '600', fontSize: 17 }}>
+            Submit expense
+          </Text>
+        </TouchableOpacity>
       </KeyboardAvoidingView>
       <BottomSheet
         ref={sheetRef}
