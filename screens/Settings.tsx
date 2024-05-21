@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View } from "react-native";
+import { Alert, StyleSheet, Text, View } from "react-native";
 import React from "react";
 import ListItem from "../components/ListItem";
 import { Entypo } from "@expo/vector-icons";
@@ -6,7 +6,7 @@ import { theme } from "../theme";
 import { useNavigation } from "@react-navigation/native";
 
 export const Settings = () => {
-    const navigation = useNavigation();
+  const navigation = useNavigation();
   return (
     <View
       style={{
@@ -18,16 +18,34 @@ export const Settings = () => {
       <ListItem
         label="Categories"
         onClick={() => navigation.navigate("Categories")}
-        detail={
-          <Entypo
-            name="chevron-small-right"
-            size={24}
-            color={"gray"}
-          />
-        }
+        detail={<Entypo name="chevron-small-right" size={24} color={"gray"} />}
       />
 
-      <ListItem label="Erase all data" isDestructive onClick={() => {}} />
+      <ListItem
+        label="Erase all data"
+        isDestructive
+        onClick={() => {
+          Alert.alert(
+            "Are u sure?",
+            "This action cannot be undone",
+            [
+              {
+                text: "Cancel",
+                onPress: () => console.log("111"),
+                style: "cancel",
+              },
+              {
+                text: "Erase data",
+                style: "destructive",
+                onPress: () => console.log("222"),
+              },
+            ],
+            {
+              userInterfaceStyle: "dark",
+            }
+          );
+        }}
+      />
     </View>
   );
 };
