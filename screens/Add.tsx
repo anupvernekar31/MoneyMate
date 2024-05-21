@@ -10,14 +10,29 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import MaterialIcons from '@expo/vector-icons/MaterialIcons';
+import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import React, { useState, useRef, useMemo } from "react";
 import ListItem from "../components/ListItem";
 import { theme } from "../theme";
 import { Recurrence } from "../types/recurrence";
 import BottomSheet, { BottomSheetFlatList } from "@gorhom/bottom-sheet";
+import DateTimePicker from "@react-native-community/datetimepicker";
+import { Category } from "../types/category";
 
 export const Add = () => {
+  const CATEGORIES: Category[] = [
+    {
+      id: "1",
+      name: "food",
+      color: "red",
+    },
+    {
+      id: "2",
+      name: "abckabckj",
+      color: "blue",
+    },
+  ];
+
   const sheetRef = useRef<BottomSheet>(null);
   const snapPoints = useMemo(() => ["25%", "50%", "90%"], []);
 
@@ -28,10 +43,15 @@ export const Add = () => {
   );
   const [date, setDate] = useState(new Date());
   const [note, setNote] = useState("");
-  const [category, setCategory] = useState("");
+  const [category, setCategory] = useState<Category>();
 
   const selectRecurrence = (selectedRecurrence: string) => {
     setRecurrence(selectedRecurrence as Recurrence);
+    sheetRef.current?.close();
+  };
+
+  const selectCategory = (selectedCategory: Category) => {
+    setCategory(selectedCategory);
     sheetRef.current?.close();
   };
 
@@ -100,12 +120,12 @@ export const Add = () => {
               </TouchableOpacity>
             }
           />
-          {/* <ListItem
+          <ListItem
             label="Date"
             detail={
               Platform.OS === "ios" && (
                 <DateTimePicker
-                  // value={date}
+                  value={date}
                   mode={"date"}
                   is24Hour={true}
                   themeVariant="dark"
@@ -117,11 +137,11 @@ export const Add = () => {
                       new Date().getDate()
                     )
                   }
-                  // onChange={(event, newDate) => setDate(newDate)}
+                  onChange={(event, newDate) => setDate(newDate)}
                 />
               )
             }
-          /> */}
+          />
 
           <ListItem
             label="Note"
@@ -166,7 +186,7 @@ export const Add = () => {
                     fontSize: 16,
                   }}
                 >
-                  {"category?.name"}
+                  {category?.name}
                 </Text>
               </TouchableOpacity>
             }
@@ -202,10 +222,11 @@ export const Add = () => {
             style={{ backgroundColor: theme.colors.card }}
           />
         )}
-        {/* {sheetView === 'category' && (
+        {sheetView === 'category' && (
           <BottomSheetFlatList
-            data={categories[0]?.isValid() ? categories : []}
-            keyExtractor={({ _id }) => _id.toHexString()}
+            // data={categories[0]?.isValid() ? categories : []}
+            data={CATEGORIES}
+            keyExtractor={({id }) => id.toString()}
             renderItem={({ item }) => (
               <TouchableHighlight
                 style={{ paddingHorizontal: 18, paddingVertical: 12 }}
@@ -236,16 +257,16 @@ export const Add = () => {
             )}
             style={{ backgroundColor: theme.colors.card }}
           />
-        )} */}
+        )}
       </BottomSheet>
-      <InputAccessoryView nativeID='dismissKeyboard'>
+      <InputAccessoryView nativeID="dismissKeyboard">
         <View
           style={{
             height: 44,
-            display: 'flex',
-            justifyContent: 'center',
+            display: "flex",
+            justifyContent: "center",
             paddingHorizontal: 16,
-            alignItems: 'flex-end',
+            alignItems: "flex-end",
             backgroundColor: theme.colors.card,
             borderTopColor: theme.colors.border,
             borderTopWidth: 1,
@@ -253,7 +274,7 @@ export const Add = () => {
         >
           <TouchableOpacity onPress={() => Keyboard.dismiss()}>
             <MaterialIcons
-              name='keyboard-hide'
+              name="keyboard-hide"
               size={28}
               style={{ color: theme.colors.primary }}
             />
