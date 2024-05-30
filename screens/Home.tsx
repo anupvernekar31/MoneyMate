@@ -6,10 +6,13 @@ import { Expenses, Reports, Add, Settings } from "../screens";
 import { TabBarIcon } from "../components/TabBarIcon";
 import { theme } from "../theme";
 import React, { useRef } from "react";
+import BottomSheet from "@gorhom/bottom-sheet";
 
 const Tab = createBottomTabNavigator();
 
 export const Home = () => {
+
+  const reportsSheetRef = useRef<BottomSheet>(null);
   return (
     <Tab.Navigator
       screenOptions={{
@@ -30,7 +33,7 @@ export const Home = () => {
           tabBarIcon: (props) => <TabBarIcon {...props} type="reports" />,
           headerRight: () => (
             <TouchableOpacity
-              // onPress={() => reportsSheetRef.current.expand()}
+              onPress={() => reportsSheetRef.current.expand()}
               style={{ marginRight: 16 }}
             >
               <MaterialCommunityIcons
@@ -42,8 +45,10 @@ export const Home = () => {
           ),
         }}
         name="Reports"
-        component={Reports}
-      />
+        // component={Reports}
+      >
+        {() => <Reports reportsSheetRef={reportsSheetRef} />}
+      </Tab.Screen>
 
       <Tab.Screen
         options={{
